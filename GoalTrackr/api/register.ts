@@ -1,7 +1,7 @@
 import { Handler } from '@netlify/functions';
-import { connectToDatabase } from '../utils/db';
-import { UserModel } from '../models/User';
-import { hashPassword, generateToken, setAuthCookie } from '../utils/auth';
+import { connectToDatabase } from './utils/db';
+import { UserModel } from './models/User';
+import { hashPassword, generateToken, setAuthCookie } from './utils/auth';
 
 const handler: Handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {

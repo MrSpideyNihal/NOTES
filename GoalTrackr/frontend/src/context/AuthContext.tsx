@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const checkAuth = async () => {
         try {
-            const { data } = await api.get<{ user: User }>('/auth/me');
+            const { data } = await api.get<{ user: User }>('/me');
             setUser(data.user);
         } catch (error) {
             setUser(null);
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const login = async (credentials: any) => {
         try {
-            const { data } = await api.post<AuthResponse>('/auth/login', credentials);
+            const { data } = await api.post<AuthResponse>('/login', credentials);
             setUser(data.user);
             toast.success('Successfully logged in!');
         } catch (error: any) {
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const register = async (credentials: any) => {
         try {
-            const { data } = await api.post<AuthResponse>('/auth/register', credentials);
+            const { data } = await api.post<AuthResponse>('/register', credentials);
             setUser(data.user);
             toast.success('Account created successfully!');
         } catch (error: any) {
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = async () => {
         try {
-            await api.post('/auth/logout');
+            await api.post('/logout');
             setUser(null);
             toast.success('Logged out');
         } catch (error) {

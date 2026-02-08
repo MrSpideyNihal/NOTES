@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions';
-import { clearAuthCookie } from '../utils/auth';
+import { clearAuthCookie } from './utils/auth';
 
 const handler: Handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
