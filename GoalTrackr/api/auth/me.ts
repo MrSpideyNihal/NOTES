@@ -1,6 +1,6 @@
 import { Handler } from '@netlify/functions';
-import { getUserFromRequest } from '../utils/auth';
 import { connectToDatabase } from '../utils/db';
+import { getUserFromRequest } from '../utils/auth';
 
 const handler: Handler = async (event, context) => {
     if (event.httpMethod !== 'GET') {

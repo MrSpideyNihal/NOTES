@@ -1,8 +1,7 @@
 import { Handler } from '@netlify/functions';
-import bcrypt from 'bcryptjs';
 import { connectToDatabase } from '../utils/db';
 import { UserModel } from '../models/User';
-import { generateToken, setAuthCookie } from '../utils/auth';
+import { comparePassword, generateToken, setAuthCookie } from '../utils/auth';
 
 const handler: Handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
@@ -23,7 +22,7 @@ const handler: Handler = async (event, context) => {
             return { statusCode: 401, body: JSON.stringify({ message: 'Invalid credentials' }) };
         }
 
-        const isMatch = await bcrypt.compare(password, user.passwordHash);
+        const isMatch = await comparePassword(password, user.password);
         if (!isMatch) {
             return { statusCode: 401, body: JSON.stringify({ message: 'Invalid credentials' }) };
         }

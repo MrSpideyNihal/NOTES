@@ -1,8 +1,7 @@
 import { Handler } from '@netlify/functions';
-import bcrypt from 'bcryptjs';
 import { connectToDatabase } from '../utils/db';
 import { UserModel } from '../models/User';
-import { generateToken, setAuthCookie } from '../utils/auth';
+import { hashPassword, generateToken, setAuthCookie } from '../utils/auth';
 
 const handler: Handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
@@ -23,12 +22,11 @@ const handler: Handler = async (event, context) => {
             return { statusCode: 409, body: JSON.stringify({ message: 'User already exists' }) };
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(password, salt);
+        const hashedPassword = await hashPassword(password);
 
         const newUser = await UserModel.create({
             email,
-            passwordHash,
+            password: hashedPassword,
             name,
         });
 

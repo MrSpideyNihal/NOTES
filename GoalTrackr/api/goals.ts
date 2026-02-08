@@ -1,7 +1,8 @@
 import { Handler } from '@netlify/functions';
-import { connectToDatabase } from '../utils/db';
-import { GoalModel } from '../models/Goal';
-import { getUserFromRequest } from '../utils/auth';
+import { connectToDatabase } from './utils/db';
+import { GoalModel } from './models/Goal';
+import { getUserFromRequest } from './utils/auth';
+import { GoalStatus, GoalCategory } from '../shared/types';
 
 const handler: Handler = async (event, context) => {
     context.callbackWaitsForEmptyEventLoop = false;
